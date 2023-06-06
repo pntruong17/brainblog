@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*! purgecss start ignore */
+@import "prism.css";
+/*! purgecss end ignore */
+
+/*Custom Styles Here*/
+
+.gradient-custom-1 {
+  background-image: linear-gradient(
+    68.4deg,
+    rgba(99, 251, 215, 1) -0.4%,
+    rgba(5, 222, 250, 1) 100.2%
+  );
+}
+.gradient-custom-2 {
+  background: linear-gradient(
+    to right,
+    rgb(242, 112, 156),
+    rgb(255, 148, 114)
+  );
+}
+.gradient-custom-3 {
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(0, 107, 141, 1) 0%,
+    rgba(0, 69, 91, 1) 90%
+  );
+}
+.gradient-custom-4 {
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(226, 240, 254, 1) 0%,
+    rgba(255, 247, 228, 1) 90%
+  );
+}
+.gra-bg-red {
+  background-image: radial-gradient(
+    circle 860px at 11.8% 33.5%,
+    rgba(240, 30, 92, 1) 0%,
+    rgba(244, 49, 74, 1) 30.5%,
+    rgba(249, 75, 37, 1) 56.1%,
+    rgba(250, 88, 19, 1) 75.6%,
+    rgba(253, 102, 2, 1) 100.2%
+  );
+}
+.gra-bg-gray {
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(90, 92, 106, 1) 0%,
+    rgba(32, 45, 58, 1) 81.3%
+  );
+}
+.gra-bg-purple {
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(163, 175, 243, 1) 0%,
+    rgba(220, 182, 232, 1) 100.2%
+  );
+}
+.gra-bg-golden {
+  background: linear-gradient(
+    to right,
+    #bf953f,
+    #fcf6ba,
+    #b38728,
+    #fbf5b7,
+    #aa771c
+  );
+}
+.box-shadow-framer {
+  box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+    0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075);
+}
+
+.animate-rotation {
+  animation: analog_rotation 12s linear;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+.matched {
+  border: 2px solid blueviolet;
+  border-radius: 0.5rem;
+}
+.correct {
+  border: 2px solid blueviolet;
+  border-radius: 0.5rem;
+}
+.user-correct {
+  background-color: #1e90ff;
+}
+.user-incorrect {
+  background-color: #ff5733;
+}
+.card {
+  position: relative;
+  transition: transform 0.25s;
+  transform-style: preserve-3d;
+}
+.animate-rotation-18 {
+  animation: analog_rotation 18s linear;
+}
+
+.animate-rotation-18-infinite {
+  animation: analog_rotation 18s linear infinite;
+}
+
+.shake-element {
+  animation: shake 1s;
+}
+.shake-element-infinite {
+  animation: shake 1s infinite;
+}
+
+.sun {
+  width: 2000px;
+  height: 2000px;
+  background-image: url("https://img.freepik.com/premium-vector/white-background-with-pastel-sun-rays-abstract-summer-sun-shine-flat-vector-illustration_643118-57.jpg?w=2000");
+  background-size: contain;
+  animation: spin 200s linear infinite;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+.matched {
+  border: 2px solid blueviolet;
+  border-radius: 0.5rem;
+}
+.correct {
+  border: 2px solid blueviolet;
+  border-radius: 0.5rem;
+}
+.card {
+  position: relative;
+  transition: transform 0.25s;
+  transform-style: preserve-3d;
+}
+
+.front,
+.back {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px 2px rgba(50, 50, 50, 0.25);
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.front {
+  background-color: #111111;
+}
+
+.back {
+  background-color: #ffffff;
+  transform: rotateY(180deg);
+}
+
+.spin1 {
+  animation: spin1 6s linear infinite;
+}
+.spin2 {
+  animation: spin2 12s linear infinite;
+}
+._spin1 {
+  animation: _spin1 6s linear infinite;
+}
+._spin2 {
+  animation: _spin2 12s linear infinite;
+}
+
+/*
+  --------------- WORDLE CSS
+  */
+
+#correct {
+  background-color: #388e3c;
+}
+
+#almost {
+  background-color: #f9a825;
+}
+
+#error {
+  background-color: #3a393c;
+}
+
+#big {
+}
+#disabled {
+  background-color: #3a393c;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes _spin1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes _spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes analog_rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  10%,
+  90% {
+    transform: translate(-10px, 0);
+  }
+  20%,
+  80% {
+    transform: translate(10px, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate(-10px, 0);
+  }
+  40%,
+  60% {
+    transform: translate(10px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
