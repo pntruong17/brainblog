@@ -6,7 +6,6 @@ import Container from "@/components/container";
 
 export default function Game({ params }) {
   const game = getGameBySlug(params.game);
-  console.log(params.game);
   const [visibleModal, setVisibleModal] = useState(false);
 
   const [mygame, setMygame] = useState(game);

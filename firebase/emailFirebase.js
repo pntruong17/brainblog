@@ -1,5 +1,4 @@
-//import firebase from "firebase/app";
-import { db, firebase } from "./firebaseconfig";
+import { db } from "./firebaseconfig";
 
 import {
   collection,
@@ -11,7 +10,7 @@ import {
   doc,
   orderBy,
   query,
-  limit,
+  limit
 } from "firebase/firestore";
 
 export const updateEmail = async (email, newData) => {

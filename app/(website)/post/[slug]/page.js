@@ -13,7 +13,6 @@ export async function generateMetadata({ params }) {
 
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
-  console.log(params.slug);
   return <PostPage post={post} />;
 }
 

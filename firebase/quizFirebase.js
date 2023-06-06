@@ -4,7 +4,7 @@ import {
   getDoc,
   setDoc,
   getDocs,
-  updateDoc,
+  updateDoc
 } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 //import { useState, useEffect } from "react";
@@ -18,10 +18,10 @@ let codesampple = {
   education: "High Shool",
   iqpoint: 100,
   time: 90,
-  wrongs: [],
+  wrongs: []
 };
 
-export const createQuiz = async (data) => {
+export const createQuiz = async data => {
   // Add a new document with a generated id
   const newCityRef = doc(collection(db, "quizs"));
 
@@ -31,11 +31,11 @@ export const createQuiz = async (data) => {
 export const getQuiz = async () => {
   const quizDoc = [];
   const querySnapshot = await getDocs(collection(db, "quizs"));
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach(doc => {
     // doc.data() is never undefined for query doc snapshots
     quizDoc.push({
       ...doc.data(),
-      id: doc.id,
+      id: doc.id
     });
   });
   return quizDoc;
@@ -62,7 +62,7 @@ export const getQuiz = async () => {
 // id: "braingame000",
 // id: "trivia0000",
 
-export const saveRecordTrivia = async (newRecord) => {
+export const saveRecordTrivia = async newRecord => {
   const { id, name, pointFirstPlayEveryUser } = newRecord;
   const triviaRef = doc(db, "trivia", id); // Get reference to the "trivia" document
 
@@ -74,17 +74,17 @@ export const saveRecordTrivia = async (newRecord) => {
       const data = triviaDoc.data();
       const nextTrivia = [
         ...data.pointFirstPlayEveryUser,
-        pointFirstPlayEveryUser,
+        pointFirstPlayEveryUser
       ];
       await updateDoc(triviaRef, {
-        pointFirstPlayEveryUser: nextTrivia,
+        pointFirstPlayEveryUser: nextTrivia
       });
     } else {
       // Case 2: Create new document
       await setDoc(triviaRef, {
         id: id,
         name: name,
-        pointFirstPlayEveryUser: [pointFirstPlayEveryUser],
+        pointFirstPlayEveryUser: [pointFirstPlayEveryUser]
       });
     }
   } catch (error) {
@@ -110,7 +110,7 @@ export const saveRecordTrivia = async (newRecord) => {
 //     console.error(error);
 //   });
 
-export const calculatePercentageIncrease = async (newRecord) => {
+export const calculatePercentageIncrease = async newRecord => {
   const { id, pointFirstPlayEveryUser } = newRecord;
   const triviaRef = doc(db, "trivia", id); // Tạo tham chiếu đến collection "trivia"
   const triviaDoc = await getDoc(triviaRef); // Get the user document
@@ -120,7 +120,10 @@ export const calculatePercentageIncrease = async (newRecord) => {
   }
 
   const data = triviaDoc.data();
-  const total = data.pointFirstPlayEveryUser.reduce((acc, val) => acc + val, 0);
+  const total = data.pointFirstPlayEveryUser.reduce(
+    (acc, val) => acc + val,
+    0
+  );
   const average = total / data.pointFirstPlayEveryUser.length;
   const increasePercentage =
     ((pointFirstPlayEveryUser - average) / average) * 100;

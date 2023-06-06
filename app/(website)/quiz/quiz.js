@@ -7,7 +7,6 @@ import TriviaCard from "@/lib/trivia/TriviaCard";
 import { triviaData } from "../../../lib/trivia/triviaData";
 
 export default function Quiz() {
-  console.log(triviaData);
   let seoID = 0;
   let seoID2 = 1;
   return (
@@ -17,7 +16,7 @@ export default function Quiz() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="body-font px-3">
-        <div class="font-Nunito mx-auto h-auto max-w-[56rem] pt-16 md:pt-24">
+        <div className="font-Nunito mx-auto h-auto max-w-[56rem] pt-16 md:pt-24">
           <div className="flex flex-wrap">
             <Link
               href={"/quiz/" + triviaData[seoID].slug}

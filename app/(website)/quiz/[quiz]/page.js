@@ -179,7 +179,6 @@ export default function Trivia({ params }) {
       Number(gameScore.timeBonusStack) +
       Number(gameScore.point);
 
-    console.log("newPoints", newPoints);
     if (state === STATES[4]) {
       setCookies("_USER_COOKIES_TRIVIA_LVL", newPoints);
       setPointCookies(newPoints);
@@ -227,12 +226,10 @@ export default function Trivia({ params }) {
 
   const handleStart = () => {
     setIsActiveTime(true);
-    console.log("starting");
   };
 
   const handlePause = () => {
     setIsActiveTime(false);
-    console.log("pause");
   };
 
   const handleReset = () => {
@@ -255,7 +252,6 @@ export default function Trivia({ params }) {
       setSeconds(0);
       handlePause();
     }
-    console.log("state ", state);
   }, [state]);
 
   useEffect(() => {
@@ -273,7 +269,6 @@ export default function Trivia({ params }) {
   useEffect(() => {
     let interval = null;
     if (seconds >= TIMER) {
-      console.log("lon hon 8 giay");
       setState(STATES[2]);
     }
     if (isActiveTime) {

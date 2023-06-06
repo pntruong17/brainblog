@@ -1,5 +1,8 @@
-//import firebase from "firebase/app";
-import { db, firebase } from "./firebaseconfig";
+import { db } from "./firebaseconfig";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+// import các thành phần khác mà bạn muốn sử dụng từ Firebase
 
 import {
   collection,
@@ -11,7 +14,7 @@ import {
   doc,
   orderBy,
   query,
-  limit,
+  limit
 } from "firebase/firestore";
 
 const sample_userdata = {
@@ -24,8 +27,8 @@ const sample_userdata = {
   yourdata: {
     iqlvl: "",
     age: "",
-    country: "",
-  },
+    country: ""
+  }
 };
 
 export const updateUser = async (uid, newData) => {
@@ -41,12 +44,12 @@ export const updateUser = async (uid, newData) => {
   }
 };
 
-export const deleteUser = async (uid) => {
+export const deleteUser = async uid => {
   const userDoc = doc(db, "users", uid);
   await deleteDoc(userDoc);
 };
 
-export const returnIQTestRemain = async (uid) => {
+export const returnIQTestRemain = async uid => {
   try {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
@@ -62,7 +65,7 @@ export const returnIQTestRemain = async (uid) => {
   }
 };
 
-export const getYourData = async (uid) => {
+export const getYourData = async uid => {
   try {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
@@ -78,7 +81,7 @@ export const getYourData = async (uid) => {
   }
 };
 
-export const fetchDocById = async (uid) => {
+export const fetchDocById = async uid => {
   try {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
@@ -94,7 +97,7 @@ export const fetchDocById = async (uid) => {
   }
 };
 
-export const checkUserExistence = async (collectionId) => {
+export const checkUserExistence = async collectionId => {
   try {
     const collectionRef = firebase.firestore().collection("users");
     const doc = await collectionRef.doc(collectionId).get();
@@ -110,13 +113,7 @@ export const checkUserExistence = async (collectionId) => {
   }
 };
 
-// const newRecord = {
-//   uid: "0101",
-//   idTrivia:"trivia0000"
-//   neurons: 1543,
-// };
-
-export const addNeuronAndIdTrivia = async (newRecord) => {
+export const addNeuronAndIdTrivia = async newRecord => {
   const { uid, idTrivia, neurons } = newRecord;
   const userRef = doc(db, "users", uid); // Tạo tham chiếu đến collection "users"
 
@@ -126,7 +123,7 @@ export const addNeuronAndIdTrivia = async (newRecord) => {
     if (userDoc.exists()) {
       // Case 1: Update existing document
       const data = userDoc.data();
-      const isPlayed = data.idTrivia.some((id) => id === idTrivia);
+      const isPlayed = data.idTrivia.some(id => id === idTrivia);
       console.log(isPlayed);
       let nextIdTrivia = [...data.idTrivia];
       if (!isPlayed) {
@@ -135,14 +132,14 @@ export const addNeuronAndIdTrivia = async (newRecord) => {
 
       await updateDoc(userRef, {
         idTrivia: nextIdTrivia,
-        neurons: data.neurons + neurons,
+        neurons: data.neurons + neurons
       });
     } else {
       // Case 2: Create new document
       await setDoc(userRef, {
         uid: uid,
         idTrivia: [idTrivia],
-        neurons: neurons,
+        neurons: neurons
       });
     }
   } catch (error) {
@@ -150,52 +147,53 @@ export const addNeuronAndIdTrivia = async (newRecord) => {
   }
 };
 
-export const returnNeuronsAndAddNeuronAndIdTrivia = async (newRecord) => {
-  const { uid, idTrivia, neurons } = newRecord;
-  const userRef = doc(db, "users", uid); // Tạo tham chiếu đến collection "users"
-  const returnNeuron = {
-    oldNeurons: undefined,
-    newNeurons: undefined,
-  };
-  try {
-    const userDoc = await getDoc(userRef); // Get the user document
+export const returnNeuronsAndAddNeuronAndIdTrivia =
+  async newRecord => {
+    const { uid, idTrivia, neurons } = newRecord;
+    const userRef = doc(db, "users", uid); // Tạo tham chiếu đến collection "users"
+    const returnNeuron = {
+      oldNeurons: undefined,
+      newNeurons: undefined
+    };
+    try {
+      const userDoc = await getDoc(userRef); // Get the user document
 
-    if (userDoc.exists()) {
-      // Case 1: Update existing document
-      const data = userDoc.data();
-      const isPlayed = data.idTrivia.some((id) => id === idTrivia);
-      console.log(isPlayed);
-      let nextIdTrivia = [...data.idTrivia];
-      if (!isPlayed) {
-        nextIdTrivia.push(idTrivia);
+      if (userDoc.exists()) {
+        // Case 1: Update existing document
+        const data = userDoc.data();
+        const isPlayed = data.idTrivia.some(id => id === idTrivia);
+        console.log(isPlayed);
+        let nextIdTrivia = [...data.idTrivia];
+        if (!isPlayed) {
+          nextIdTrivia.push(idTrivia);
+        }
+
+        await updateDoc(
+          userRef,
+          {
+            idTrivia: nextIdTrivia,
+            neurons: data.neurons + neurons
+          },
+          { merge: true }
+        );
+
+        returnNeuron.newNeurons = data.neurons + neurons;
+        returnNeuron.oldNeurons = data.neurons;
+      } else {
+        // Case 2: Create new document
+        await setDoc(userRef, {
+          uid: uid,
+          idTrivia: [idTrivia],
+          neurons: neurons
+        });
+        returnNeuron.newNeurons = neurons;
+        returnNeuron.oldNeurons = 0;
       }
-
-      await updateDoc(
-        userRef,
-        {
-          idTrivia: nextIdTrivia,
-          neurons: data.neurons + neurons,
-        },
-        { merge: true }
-      );
-
-      returnNeuron.newNeurons = data.neurons + neurons;
-      returnNeuron.oldNeurons = data.neurons;
-    } else {
-      // Case 2: Create new document
-      await setDoc(userRef, {
-        uid: uid,
-        idTrivia: [idTrivia],
-        neurons: neurons,
-      });
-      returnNeuron.newNeurons = neurons;
-      returnNeuron.oldNeurons = 0;
+    } catch (error) {
+      console.error("Error adding neuron and trivia ID:", error);
     }
-  } catch (error) {
-    console.error("Error adding neuron and trivia ID:", error);
-  }
-  return returnNeuron;
-};
+    return returnNeuron;
+  };
 
 export const returnTopTenNeuronsUsers = async () => {
   const userRef = collection(db, "users"); // Get reference to the "users" collection
@@ -203,7 +201,7 @@ export const returnTopTenNeuronsUsers = async () => {
   const querySnapshot = await getDocs(q);
   const topTenUsers = [];
 
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach(doc => {
     topTenUsers.push(doc.data());
   });
 

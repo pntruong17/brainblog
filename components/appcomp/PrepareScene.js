@@ -134,7 +134,7 @@ const PrepareScene = ({
             //   showSpinner={false}
             //   numtest={numtest}
             // />
-            <h3>Purchas</h3>
+            <h3>Purchase</h3>
           )}
           {state === "test" && (
             <button
