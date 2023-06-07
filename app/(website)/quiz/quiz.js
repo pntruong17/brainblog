@@ -16,7 +16,7 @@ export default function Quiz() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="body-font px-3">
-        <div className="font-Nunito mx-auto h-auto max-w-[56rem] pt-16 md:pt-24">
+        <div className="font-Nunito mx-auto h-auto max-w-[56rem] pt-5 md:pt-12">
           <div className="flex flex-wrap">
             <Link
               href={"/quiz/" + triviaData[seoID].slug}
@@ -29,7 +29,7 @@ export default function Quiz() {
                 src={triviaData[seoID].image}
                 alt="blog image"
               />
-              <div className="absolute bottom-5 w-full">
+              <div className="absolute bottom-5 w-full text-gray-900">
                 <div className="text-_bg_dark mx-auto w-[90%] rounded-lg bg-white/[0.68] p-6 shadow">
                   <h2 className="hover:text-_blue text-2xl font-black hover:cursor-pointer md:text-3xl">
                     {triviaData[seoID].title}
